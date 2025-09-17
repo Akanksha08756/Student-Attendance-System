@@ -1,0 +1,27 @@
+CREATE DATABASE IF NOT EXISTS attendance_db;
+USE attendance_db;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    roll_no VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS attendance (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT NOT NULL,
+    teacher_id INT, NOT NULL, 
+    date DATE NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    remarks VARCHAR(255), NOT NULL,
+    UNIQUE(student_id, date),
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+);
